@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+	<title>Subtraction</title>
+	<form name="form" id="form">
+    <p id="question"></p>
+    <input type="textbox" name="answer" id="answer" />
+    <input type="submit" />    
+</form>   
+<a href="Index.html"><button>Back to main page</button></a>
+<div id="result"></div>
+
+</head>
+<body>
+<script type="text/javascript">
+	var number1 = Math.ceil(Math.random()*100)-1;
+	var number2 = Math.ceil(Math.random()*100)-1;
+	var correct = number1 * number2
+	var answer;
+
+$("#question").html("What is " + number1 + " * "  + number2 + "?");
+//Accept form input
+$("#form").submit(function(event) {
+
+    answer = $("#answer").val();
+    
+    //Check to make sure our input is a number.
+    if (!isNaN(parseInt(answer))) {
+        if (answer == correct) {
+            //This is completely unnecessary in a real world application. If the answer was
+            //correct you would then do any preparation for the form to be submitted...
+            //i.e. the rest of your validation of the form.
+            $("#result").addClass("correct").html("You've answered correctly!");
+            $("#result").removeClass("hide");
+        }
+        else {
+            $("#result").addClass("wrong").html("I'm sorry, you answer incorrectly. Please try again.");
+            $("#result").removeClass("hide");
+        }
+    }
+    else {
+        //Result is not a number. Alert the user.
+        $("#result").addClass("wrong").html("I'm sorry, your answer was not a number. Please try again");
+        $("#result").removeClass("hide");
+    }
+
+    //Stops the form from submitting. Normally this would only be used in the incorrect
+    //answer branch of the if statement. But since we have no acutal form here we'll stop it
+    //regardless of the answer.
+    event.preventDefault();
+});
+</script>
+</body>
+</html>
